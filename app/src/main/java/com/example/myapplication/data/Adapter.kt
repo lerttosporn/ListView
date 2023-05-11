@@ -14,22 +14,29 @@ import com.example.myapplication.R
 class Adapter(
     private val context: Activity, private val arrayList: ArrayList<Article>
 ) : ArrayAdapter<Article>(context, R.layout.list_item, arrayList) {
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        val inflater = LayoutInflater.from(context)
-        val view = inflater.inflate(R.layout.list_item, null)
 
-//        val imageView = view.findViewById<ImageView>(R.id.imageView)
-        val title = view.findViewById<TextView>(R.id.mainTitle)
-        val des = view.findViewById<TextView>(R.id.desPost)
-        val publishedAt = view.findViewById<TextView>(R.id.publishedAt)
+    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+        var view = convertView
+        val listData = getItem(position)
+
+        if (view == null) {
+            view = LayoutInflater.from(context).inflate(R.layout.list_item,parent,false)
+        }else {
+            val imageView = view.findViewById<ImageView>(R.id.imageView)
+            val title = view.findViewById<TextView>(R.id.mainTitle)
+            val des = view.findViewById<TextView>(R.id.desPost)
+            val publishedAt = view.findViewById<TextView>(R.id.publishedAt)
+
+            title.text = listData?.title
+            des.text = listData?.description
+            publishedAt.text= listData?.publishedAt
+        }
 
 //        Glide.with(this)
 //            .load("https://example.com/image.jpg")
 //            .into(imageView)
 //        imageView.setImageResource(arrayList[position].)
-        title.text = arrayList[position].title
-        des.text = arrayList[position].description
-        publishedAt.text= arrayList[position].publishedAt
-        return view
+
+        return view!!
     }
 }

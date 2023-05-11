@@ -23,9 +23,9 @@ class MainActivity : AppCompatActivity() {
         getNews()
         mainBinding.listView.isClickable = true
         mainBinding.listView.adapter = Adapter(this, dataMainList)
-        mainBinding.listView.setOnClickListener{
+//        mainBinding.listView.setOnClickListener{
 //            dataMainList.
-        }
+//        }
     }
 
     private fun getNews() {
@@ -40,6 +40,7 @@ class MainActivity : AppCompatActivity() {
                 if (response.isSuccessful && data != null) {
                     var dataMainList = ArrayList(data.articles)
                     Log.i("API", data.toString())
+//                    mainBinding.
                 } else {
                     Log.i("API data null", data.toString())
                 }
