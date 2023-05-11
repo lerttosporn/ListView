@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.example.myapplication.R
+import com.example.myapplication.databinding.ListItemBinding
 
 class Adapter(
     private val context: Activity, private val arrayList: ArrayList<Article>
@@ -18,7 +19,6 @@ class Adapter(
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         var view = convertView
         val listData = getItem(position)
-
         if (view == null) {
             view = LayoutInflater.from(context).inflate(R.layout.list_item,parent,false)
         }else {
@@ -31,11 +31,6 @@ class Adapter(
             des.text = listData?.description
             publishedAt.text= listData?.publishedAt
         }
-
-//        Glide.with(this)
-//            .load("https://example.com/image.jpg")
-//            .into(imageView)
-//        imageView.setImageResource(arrayList[position].)
 
         return view!!
     }
