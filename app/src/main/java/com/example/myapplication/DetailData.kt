@@ -15,12 +15,13 @@ class DetailData : AppCompatActivity() {
 
         val intent = this.intent
         if(intent != null){
-           val description= intent.getStringExtra("description")
-           val publishedAt= intent.getStringExtra("publishedAt")
-           val mainTitle= intent.getStringExtra("mainTitle")
+           val description= intent.getStringExtra("description")?:""
+           val publishedAt= intent.getStringExtra("publishedAt")?:""
+           val mainTitle= intent.getStringExtra("mainTitle")?:""
            val urlToImage= intent.getStringExtra("urlToImage")
             Picasso.get()
                 .load(urlToImage)
+                .placeholder(R.drawable.ic_launcher_foreground)
                 .error(R.drawable.ic_launcher_background)
                 .into(binding.imageView2)
             binding.detailTitle.text=mainTitle
