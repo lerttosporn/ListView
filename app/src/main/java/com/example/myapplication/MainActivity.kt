@@ -18,38 +18,58 @@ import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
     private lateinit var mainBinding: ActivityMainBinding
-    private lateinit var post: ArrayList<Article>
-    private lateinit var newDataList: ArrayList<Article>
+    private lateinit var post: ArrayList<Article>/* olds array */
+    private lateinit var newDataList: ArrayList<Article> /* new array */
     private lateinit var adapter: Adapter
-
+    private var check=true
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mainBinding.root)
-        newDataList = ArrayList()
+        newDataList = ArrayList()/* set init new array */
         getNewsMove()
-        mainBinding.searching.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                mainBinding.searching.clearFocus()
-                return false
+        mainBinding.listView.onItemClickListener =
+            AdapterView.OnItemClickListener { AdapterView, view, position, l ->
+                if(check){val intent = Intent(this@MainActivity, DetailData::class.java)
+                    intent.putExtra(
+                        "description",
+                         post[position].description
+                    )
+                    intent.putExtra(
+                        "publishedAt",
+                         post[position].publishedAt
+                    )
+                    intent.putExtra(
+                        "mainTitle",
+                        post[position].title
+                    )
+                    intent.putExtra("urlToImage", post[position].urlToImage)
+                    startActivity(intent)
+                    check = false
+                }else{
+                    val intent = Intent(this@MainActivity, DetailData::class.java)
+                    intent.putExtra(
+                        "description",
+                        newDataList[position].description
+                    )
+                    intent.putExtra(
+                        "publishedAt",
+                        newDataList[position].publishedAt
+                    )
+                    intent.putExtra(
+                        "mainTitle",
+                        newDataList[position].title
+                    )
+                    intent.putExtra("urlToImage", newDataList[position].urlToImage)
+                    startActivity(intent)
+                }
             }
 
-            override fun onQueryTextChange(query: String?): Boolean {
-                if (query != null) {
-                    newDataList.clear()
-                    for (article in post) {
-                        if (article.title.contains(query)) {
-                            newDataList.add(article)
-                        }
-                    }
-                    adapter = Adapter(this@MainActivity, newDataList)
-                    mainBinding.listView.adapter = adapter
-                }
-                return true
-            }
-        })
     }
 
+    override fun onResume() {
+        super.onResume()
+    }
     private fun getNewsMove() {
         val call = ApiService.retrofitBuild().getNews()
         call.enqueue(object : Callback<MainData> {
@@ -58,38 +78,40 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onResponse(call: Call<MainData>, response: Response<MainData>) {
+
                 val data = response.body()
                 if (response.isSuccessful && data != null) {
-                    var dataMainList = ArrayList(data.articles)
-                    post = dataMainList
-                    Log.i("API", data.toString())
-
+                    post = ArrayList(data.articles)
                     mainBinding.listView.isClickable = true
-                    adapter = Adapter(this@MainActivity, dataMainList)
+                    adapter = Adapter(this@MainActivity, post)
                     mainBinding.listView.adapter = adapter
-
-                    mainBinding.listView.onItemClickListener =
-                        AdapterView.OnItemClickListener { _, _, position, _ ->
-                            val intent = Intent(this@MainActivity, DetailData::class.java)
-                            intent.putExtra(
-                                "description",
-                                dataMainList[position].description
-                            )
-                            intent.putExtra(
-                                "publishedAt",
-                                dataMainList[position].publishedAt
-                            )
-                            intent.putExtra(
-                                "mainTitle",
-                                dataMainList[position].title.toString()
-                            )
-                            intent.putExtra("urlToImage", dataMainList[position]?.urlToImage)
-                            startActivity(intent)
+                    mainBinding.searching.setOnQueryTextListener(object :
+                        SearchView.OnQueryTextListener {
+                        override fun onQueryTextSubmit(query: String?): Boolean {
+                            mainBinding.searching.clearFocus()
+                            return false
                         }
+
+                        override fun onQueryTextChange(query: String?): Boolean {
+                            if (query != null) {
+                                newDataList.clear()
+                                for (article in post) {
+                                    if (article.title.contains(query)) {
+                                        newDataList.add(article)
+                                    }
+                                }
+
+                                adapter = Adapter(this@MainActivity, newDataList)
+                                mainBinding.listView.adapter = adapter
+                            }
+                            return true
+                        }
+                    })
                 } else {
                     Log.i("API data null", data.toString())
                 }
             }
         })
     }
+
 }

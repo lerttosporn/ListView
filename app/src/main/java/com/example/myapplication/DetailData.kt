@@ -22,7 +22,7 @@ class DetailData : AppCompatActivity() {
             Picasso.get()
                 .load(urlToImage)
                 .placeholder(R.drawable.ic_launcher_foreground)
-                .error(R.drawable.ic_launcher_background)
+                .error(R.drawable.no_img)
                 .into(binding.imageView2)
             binding.detailTitle.text=mainTitle
             binding.detailDes.text=description
