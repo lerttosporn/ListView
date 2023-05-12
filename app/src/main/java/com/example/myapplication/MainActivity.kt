@@ -85,6 +85,7 @@ class MainActivity : AppCompatActivity() {
                     mainBinding.listView.isClickable = true
                     adapter = Adapter(this@MainActivity, post)
                     mainBinding.listView.adapter = adapter
+
                     mainBinding.searching.setOnQueryTextListener(object :
                         SearchView.OnQueryTextListener {
                         override fun onQueryTextSubmit(query: String?): Boolean {
