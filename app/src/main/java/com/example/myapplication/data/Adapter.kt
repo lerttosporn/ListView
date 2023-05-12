@@ -27,6 +27,7 @@ class Adapter(
             val publishedAt = view.findViewById<TextView>(R.id.publishedAt)
             Picasso.get()
                 .load(listData?.urlToImage)
+                .error(R.drawable.ic_launcher_background)
                 .into(imageView)
             title.text = listData?.title
             des.text = listData?.description

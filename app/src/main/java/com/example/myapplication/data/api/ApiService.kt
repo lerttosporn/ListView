@@ -14,8 +14,8 @@ interface ApiService {
     @GET("everything")
     fun getNews(
         @Query("q") query: String = "apple",
-        @Query("from") from: String = "2023-05-10",
-        @Query("to") to: String = "2023-05-10",
+        @Query("from") from: String = "2023-05-11",
+        @Query("to") to: String = "2023-05-11",
         @Query("sortBy") sortBy: String = "popularity",
         @Query("apiKey") apiKey: String = "b8d6ccbce0d14add9988ca623e775db3"
     ): Call<MainData>

@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
                     intent.putExtra("description",dataMainList[position].description.toString())
                     intent.putExtra("publishedAt",dataMainList[position].publishedAt.toString())
                     intent.putExtra("mainTitle",dataMainList[position].title.toString())
-                    intent.putExtra("urlToImage",dataMainList[position].urlToImage.toString())
+                    intent.putExtra("urlToImage",dataMainList[position]?.urlToImage.toString())
                     startActivity(intent)
                 }
                 } else {

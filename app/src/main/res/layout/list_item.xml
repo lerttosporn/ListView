@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="15dp">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,28 +14,31 @@
             android:id="@+id/imageView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             app:srcCompat="@android:drawable/ic_menu_gallery" />
 
         <TextView
             android:id="@+id/mainTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="TextView" />
+            android:gravity="center"
+            android:text="@string/loading"
+            android:textColor="@color/teal"
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/desPost"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="TextView" />
+            android:gravity="center"
+            android:text="@string/loading" />
 
         <TextView
             android:id="@+id/publishedAt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="TextView" />
+            android:gravity="center"
+            android:text="@string/loading"
+            android:textColor="@color/steel" />
     </LinearLayout>
-</RelativeLayout>
 </LinearLayout>

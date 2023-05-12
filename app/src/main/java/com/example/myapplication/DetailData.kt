@@ -21,6 +21,7 @@ class DetailData : AppCompatActivity() {
            val urlToImage= intent.getStringExtra("urlToImage")
             Picasso.get()
                 .load(urlToImage)
+                .error(R.drawable.ic_launcher_background)
                 .into(binding.imageView2)
             binding.detailTitle.text=mainTitle
             binding.detailDes.text=description
