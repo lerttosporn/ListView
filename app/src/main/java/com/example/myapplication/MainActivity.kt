@@ -44,11 +44,12 @@ class MainActivity : AppCompatActivity() {
                     mainBinding.listView.isClickable = true
                     mainBinding.listView.adapter = Adapter(this@MainActivity, dataMainList)
                 mainBinding.listView.onItemClickListener= AdapterView.OnItemClickListener {
-                        parent, view, position, id ->
+                        _, _, position, _ ->
                 val intent=Intent(this@MainActivity,DetailData::class.java)
-                    intent.putExtra("title",dataMainList[position].toString())
-                    intent.putExtra("description",dataMainList[position].toString())
-                    intent.putExtra("publishedAt",dataMainList[position].toString())
+                    intent.putExtra("description",dataMainList[position].description.toString())
+                    intent.putExtra("publishedAt",dataMainList[position].publishedAt.toString())
+                    intent.putExtra("mainTitle",dataMainList[position].title.toString())
+                    intent.putExtra("urlToImage",dataMainList[position].urlToImage.toString())
                     startActivity(intent)
                 }
                 } else {
